@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-// Cyber Challenge React component
-// Tailwind-based single-file app. Default export a React component.
-
 export default function App() {
-  // 20 keerulisemat küsimust (eesti keeles). Iga küsimuse juures: prompt, answer (lowercase, trimmed), hint, solution, timeLimitSeconds, basePoints
   const QUESTIONS = [
     {
       id: 1,
@@ -212,16 +208,18 @@ export default function App() {
       timeLimitSeconds: 420,
       basePoints: 200,
     },
+    // Lisa teised küsimused siia vajadusel
   ];
 
-  // State
+  const maxHints = 3;
+
   const [level, setLevel] = useState(() => {
     const saved = localStorage.getItem("cyber_level");
-    return saved ? Number(saved) : 1;
+    return saved ? Number(saved) : 4;
   });
   const [score, setScore] = useState(() => {
     const s = localStorage.getItem("cyber_score");
-    return s ? Number(s) : 0;
+    return s ? Number(s) : 175;
   });
   const [usedHints, setUsedHints] = useState(() => {
     const h = localStorage.getItem("cyber_hints");
@@ -230,15 +228,12 @@ export default function App() {
 
   const [input, setInput] = useState("");
   const [message, setMessage] = useState(null);
-  const [stage, setStage] = useState(1); // 1 = vastus, 2 = kinnita (kaheastmeline)
+  const [stage, setStage] = useState(1);
   const [timeLeft, setTimeLeft] = useState(() => QUESTIONS[0].timeLimitSeconds);
   const timerRef = useRef(null);
   const [showHintText, setShowHintText] = useState(false);
   const [showSolutionText, setShowSolutionText] = useState(false);
 
-  const maxHints = 3;
-
-  // Update timeLeft when level changes
   useEffect(() => {
     const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
     setTimeLeft(q.timeLimitSeconds);
@@ -247,7 +242,6 @@ export default function App() {
     setStage(1);
     setShowHintText(false);
     setShowSolutionText(false);
-    // save
     localStorage.setItem("cyber_level", level);
   }, [level]);
 
@@ -260,7 +254,6 @@ export default function App() {
   }, [usedHints]);
 
   useEffect(() => {
-    // start timer
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
@@ -286,10 +279,8 @@ export default function App() {
       return;
     }
     if (normalize(input) === normalize(q.answer)) {
-      // Correct -> move to stage 2 (kinnitamine)
       setMessage("Vastus õige! Liigume kinnituse etappi — vajuta 'Kinnita' 15 sekundi jooksul.");
       setStage(2);
-      // start 15s confirmation timer
       let confirmT = 15;
       const confirmId = setInterval(() => {
         confirmT -= 1;
@@ -343,6 +334,12 @@ export default function App() {
     setUsedHints(0);
     setInput("");
     setMessage("Edusammud lähtestatud.");
+  }
+
+  function handleSendScore() {
+    const subject = encodeURIComponent("Küberväljakutse testi skoor");
+    const body = encodeURIComponent(`Tere!\n\nMinu praegune skoor on: ${score}\nTase: ${level}/20\nKasutasin õlekõrsi: ${usedHints}/${maxHints}\n\nParimate soovidega.`);
+    window.location.href = `mailto:valdo.nolvak@gmail.com?subject=${subject}&body=${body}`;
   }
 
   const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
@@ -403,9 +400,7 @@ export default function App() {
               <button
                 onClick={handleConfirmClaim}
                 disabled={stage !== 2}
-                className={`px-3 py-2 rounded ${
-                  stage === 2 ? "bg-green-600 hover:bg-green-700" : "bg-slate-600 cursor-not-allowed"
-                }`}
+                className={`px-3 py-2 rounded ${stage === 2 ? "bg-green-600 hover:bg-green-700" : "bg-slate-600 cursor-not-allowed"}`}
               >
                 Kinnita
               </button>
@@ -434,6 +429,13 @@ export default function App() {
               <div className="text-sm text-slate-300">Kasutasid õlekõrsi</div>
               <div className="font-mono text-xl">{usedHints} / {maxHints}</div>
             </div>
+
+            <button
+              onClick={handleSendScore}
+              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700"
+            >
+              Saada skoor e-kirjaga
+            </button>
 
             <button
               onClick={resetProgress}
