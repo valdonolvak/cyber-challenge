@@ -1,4 +1,3 @@
-//algus
 import React, { useEffect, useState, useRef } from "react";
 
 // Cyber Challenge React component
@@ -14,7 +13,7 @@ export default function App() {
       answer: "cia",
       hint: "Algustähed sõnadest Confidentiality, Integrity, Availability.",
       solution: "Vastus on CIA (Confidentiality, Integrity, Availability).",
-      timeLimitSeconds: 45,
+      timeLimitSeconds: 420,
       basePoints: 50,
     },
     {
@@ -25,7 +24,7 @@ export default function App() {
       hint: "Võti on sama mõlemas suunas — kiire ja levinud salastusmeetod.",
       solution:
         "Sõna on 'sümmeetriline' (inglise keeles 'symmetric').",
-      timeLimitSeconds: 60,
+      timeLimitSeconds: 420,
       basePoints: 60,
     },
     {
@@ -35,7 +34,7 @@ export default function App() {
       answer: "22",
       hint: "See on väike kahekohaline number, tavaline SSH port.",
       solution: "SSH vaikimisi port on 22.",
-      timeLimitSeconds: 30,
+      timeLimitSeconds: 420,
       basePoints: 40,
     },
     {
@@ -46,7 +45,7 @@ export default function App() {
       hint: "Base64 lõppmärgiks on '=' ja string tundub koosneb ingliskeelsetest sõnadest ja alakriipsust.",
       solution:
         "Base64 dekoodides saad: CRESTED_PUBIC (sisesta täpselt, suurtähtedega).",
-      timeLimitSeconds: 90,
+      timeLimitSeconds: 420,
       basePoints: 80,
     },
     {
@@ -57,7 +56,7 @@ export default function App() {
       hint: "See pole bruteforce täies mõttes, vaid 'sõnaraamatul põhinev'.",
       solution:
         "Tavaliselt nimetatakse seda 'dictionary' rünnakuks (sõnastikurünnak).",
-      timeLimitSeconds: 60,
+      timeLimitSeconds: 420,
       basePoints: 60,
     },
     {
@@ -68,7 +67,7 @@ export default function App() {
       hint: "Proovi nihutada tähti vasakule 5 sammu.",
       solution:
         "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
-      timeLimitSeconds: 45,
+      timeLimitSeconds: 420,
       basePoints: 70,
     },
     {
@@ -78,7 +77,7 @@ export default function App() {
       answer: "a",
       hint: "See on ühe tähega kirje nagu 'A' või 'AAAA'.",
       solution: "IPv4 aadressi kirjet nimetatakse 'A' kirjeks.",
-      timeLimitSeconds: 30,
+      timeLimitSeconds: 420,
       basePoints: 40,
     },
     {
@@ -88,7 +87,7 @@ export default function App() {
       answer: "192.168.100.12",
       hint: "IP on lõpus, pärast sõna 'from'.",
       solution: "IP on 192.168.100.12.",
-      timeLimitSeconds: 30,
+      timeLimitSeconds: 420,
       basePoints: 40,
     },
     {
@@ -99,7 +98,7 @@ export default function App() {
       hint: "Tuleb kasutada ettevalmistatud lauseid / prepared statements.",
       solution:
         "Õige on 'parametreerimine' (prepared statements / parameterized queries).",
-      timeLimitSeconds: 75,
+      timeLimitSeconds: 420,
       basePoints: 70,
     },
     {
@@ -109,7 +108,7 @@ export default function App() {
       answer: "wireshark",
       hint: "See on GUI/CLI tööriist tuntud pakettide uurimiseks.",
       solution: "Tööriist on Wireshark.",
-      timeLimitSeconds: 60,
+      timeLimitSeconds: 420,
       basePoints: 60,
     },
     {
@@ -119,7 +118,7 @@ export default function App() {
       answer: "sha256",
       hint: "Tavaliselt kasutatakse see failide tervikluse kontrolliks ja paroolide räsi hoidmiseks.",
       solution: "Näide vastusest: 'sha256'.",
-      timeLimitSeconds: 60,
+      timeLimitSeconds: 420,
       basePoints: 80,
     },
     {
@@ -129,7 +128,7 @@ export default function App() {
       answer: "429",
       hint: "See kood on 4xx perekonnast ja viitab limiitidele.",
       solution: "429 - Too Many Requests.",
-      timeLimitSeconds: 30,
+      timeLimitSeconds: 420,
       basePoints: 40,
     },
     {
@@ -139,7 +138,7 @@ export default function App() {
       answer: "1010",
       hint: "XOR = erinevus; kui bitid erinevad siis 1.",
       solution: "0110 XOR 1100 = 1010.",
-      timeLimitSeconds: 30,
+      timeLimitSeconds: 420,
       basePoints: 50,
     },
     {
@@ -149,7 +148,7 @@ export default function App() {
       answer: "apikey",
       hint: "Paljud teenused kasutavad seda lihtsat võtme kontseptsiooni. (kirjuta kokku ilma tühikuteta)",
       solution: "Vastus: 'apikey' (API key).",
-      timeLimitSeconds: 60,
+      timeLimitSeconds: 420,
       basePoints: 60,
     },
     {
@@ -160,7 +159,7 @@ export default function App() {
       hint: "Lühend, mis sisaldab sõna 'Event' (sündmus).",
       solution:
         "SIEM (Security Information and Event Management) — lühend 'siem'.",
-      timeLimitSeconds: 45,
+      timeLimitSeconds: 420,
       basePoints: 70,
     },
     {
@@ -170,7 +169,7 @@ export default function App() {
       answer: "bruteforce",
       hint: "Selle rünnaku nimetus on sama mis tavalisel parooli bruteforce'il — proovib kõiki võimalusi.",
       solution: "'bruteforce' ehk jõurünnak.",
-      timeLimitSeconds: 75,
+      timeLimitSeconds: 420,
       basePoints: 80,
     },
     {
@@ -180,7 +179,7 @@ export default function App() {
       answer: "ss",
       hint: "Modernne asendus 'netstat' käsule, lihtne 2-täheline käsk.",
       solution: "'ss' kuvab sokleid ning aktiivseid ühendusi.",
-      timeLimitSeconds: 45,
+      timeLimitSeconds: 420,
       basePoints: 50,
     },
     {
@@ -190,7 +189,7 @@ export default function App() {
       answer: "dnsspoofing",
       hint: "DNS + spoofing/poisoning - kombineeritud termin.",
       solution: "See on DNS spoofing (või DNS poisoning). Vastus 'dnsspoofing'.",
-      timeLimitSeconds: 90,
+      timeLimitSeconds: 420,
       basePoints: 90,
     },
     {
@@ -200,7 +199,7 @@ export default function App() {
       answer: "123456",
       hint: "See on maailma üks levinumaid parooliridu - eestikeelne tähendus pole oluline.",
       solution: "Tuntud näide: räsi vastab paroolile '123456'.",
-      timeLimitSeconds: 120,
+      timeLimitSeconds: 420,
       basePoints: 100,
     },
     {
@@ -210,7 +209,7 @@ export default function App() {
       answer: "turvaline",
       hint: "See on sõna, mida oled varem mängu alguses näinud kui ühe infoturbeeesmärgi osa ('confidentiality' ei ole see).",
       solution: "Õige sõna on 'turvaline'.",
-      timeLimitSeconds: 180,
+      timeLimitSeconds: 420,
       basePoints: 200,
     },
   ];
@@ -306,15 +305,12 @@ export default function App() {
   }
 
   function handleConfirmClaim() {
-    // Only allowed in stage 2
     if (stage !== 2) return;
     const q = QUESTIONS.find((q) => q.id === level);
-    // Points = basePoints * (timeLeft / timeLimit) rounded + bonus for unused hints
     const timeFactor = Math.max(0.1, timeLeft / q.timeLimitSeconds);
     const awarded = Math.round(q.basePoints * timeFactor) + ((maxHints - usedHints) * 10);
     setScore((s) => s + awarded);
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
-    // advance level
     const next = Math.min(20, level + 1);
     setLevel(next);
     setStage(1);
@@ -325,7 +321,6 @@ export default function App() {
       setMessage("Sul õlekõrsi enam ei jagu.");
       return;
     }
-    // Show hint first; allow user to optionally reveal solution that will consume one õlekõrt
     setShowHintText(true);
   }
 
@@ -379,121 +374,4 @@ export default function App() {
                 onChange={(e) => setInput(e.target.value)}
                 className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
                 placeholder="Sisesta vastus siia..."
-                aria-label="vastus"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black font-semibold"
-              >
-                Esita
-              </button>
-              <button
-                type="button"
-                onClick={handleUseHint}
-                className="px-3 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-black font-semibold"
-              >
-                Kasuta õlekõrt ({maxHints - usedHints} jäänud)
-              </button>
-            </form>
-
-            <div className="mt-4">
-              <div className="flex items-center gap-4">
-                <div className="bg-slate-900/40 p-3 rounded-md">
-                  <div className="text-xs text-slate-400">Aeg jäänud</div>
-                  <div className="font-mono text-lg">{timeLeft}s</div>
-                </div>
-
-                <div className="bg-slate-900/40 p-3 rounded-md">
-                  <div className="text-xs text-slate-400">Põhipunktid</div>
-                  <div className="font-mono text-lg">{q.basePoints}</div>
-                </div>
-
-                <div className="bg-slate-900/40 p-3 rounded-md">
-                  <div className="text-xs text-slate-400">Skoor kokku</div>
-                  <div className="font-mono text-lg">{score}</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              {message && (
-                <div className="bg-slate-700/60 p-3 rounded border border-slate-600 text-slate-200">{message}</div>
-              )}
-
-              {showHintText && (
-                <div className="mt-3 bg-slate-700/60 p-3 rounded border border-slate-600">
-                  <div className="text-sm text-amber-200 font-semibold">Vihje:</div>
-                  <div className="mt-1 text-slate-200">{q.hint}</div>
-                  <div className="mt-3 flex gap-3">
-                    <button
-                      onClick={() => setShowHintText(false)}
-                      className="px-3 py-1 rounded bg-slate-600 text-sm"
-                    >
-                      Sule
-                    </button>
-                    <button
-                      onClick={handleRevealSolution}
-                      className="px-3 py-1 rounded bg-red-600 text-sm text-white"
-                    >
-                      Näita lahendust (kasutab 1 õlekõrt)
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {showSolutionText && (
-                <div className="mt-3 bg-slate-700/60 p-3 rounded border border-slate-600">
-                  <div className="text-sm text-red-200 font-semibold">Lahenduskäik:</div>
-                  <div className="mt-1 text-slate-200 whitespace-pre-wrap">{q.solution}</div>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <aside className="p-4 bg-slate-700/40 rounded-xl">
-            <div className="mb-4">
-              <h3 className="text-sm text-slate-300">Mängu seaded</h3>
-              <div className="mt-2 text-xs text-slate-400">Õlekõrsed jäänud: {maxHints - usedHints}</div>
-              <div className="mt-1 text-xs text-slate-400">Sinu skoor: {score}</div>
-              <div className="mt-1 text-xs text-slate-400">Tase: {level}/20</div>
-            </div>
-
-            <div className="mt-4">
-              <h4 className="text-sm font-semibold">Kaheastmeline kinnitamine</h4>
-              <p className="text-xs text-slate-400 mt-2">Kui vastus on õige, pead veel kinnitama (vajuta &quot;Kinnita&quot;) — see on teine etapp, et vältida automaatseid läbilööke.</p>
-              <div className="mt-3 flex flex-col gap-2">
-                <button
-                  onClick={handleConfirmClaim}
-                  className={`px-3 py-2 rounded ${stage === 2 ? "bg-emerald-500" : "bg-slate-600 cursor-not-allowed"} text-black font-semibold`}
-                  disabled={stage !== 2}
-                >
-                  Kinnita
-                </button>
-                <button
-                  onClick={resetProgress}
-                  className="px-3 py-2 rounded bg-red-700 hover:bg-red-600 text-white font-semibold"
-                >
-                  Lähtesta edusammud
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <h4 className="text-sm font-semibold">Reeglid & näpunäited</h4>
-              <ul className="list-disc ml-4 mt-2 text-xs text-slate-400">
-                <li>Iga õlekõrs näitab vihje — võid enne lahenduse näitamist proovida vihjet kasutada.</li>
-                <li>Kinnituse etapp kestab 15 sekundit pärast õiget vastust — enne kinnitamist peab vajutama &quot;Kinnita&quot;.</li>
-                <li>Punktid sõltuvad aegajäägist ja kasutamata õlekõrrest.</li>
-              </ul>
-            </div>
-          </aside>
-        </main>
-
-        <footer className="flex items-center justify-between text-xs text-slate-400">
-          <div>Arendatud: õppematerjaliks — muuda küsimusi vastavalt kursusele</div>
-          <div>Salvestatud kohalikku brauserisse (localStorage)</div>
-        </footer>
-      </div>
-    </div>
-  );
-}
+                aria-label
