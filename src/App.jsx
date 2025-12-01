@@ -216,6 +216,7 @@ export default function App() {
       timeLimitSeconds: 600,
       basePoints: 200,
     },
+    // Lisa siia ülejäänud küsimused (3–20) samamoodi nagu sinu olemasolevas koodis
   ];
 
   const maxHints = 3;
@@ -289,7 +290,9 @@ export default function App() {
       return;
     }
     if (normalize(input) === normalize(q.answer)) {
-      setMessage("Vastus õige! Liigume kinnituse etappi — vajuta 'Kinnita' 60 sekundi jooksul.");
+      setMessage(
+        "Vastus õige! Liigume kinnituse etappi — vajuta 'Kinnita' 60 sekundi jooksul."
+      );
       setStage(2);
       let confirmT = 60;
       const confirmId = setInterval(() => {
@@ -309,7 +312,8 @@ export default function App() {
     if (stage !== 2) return;
     const q = QUESTIONS.find((q) => q.id === level);
     const timeFactor = Math.max(0.1, timeLeft / q.timeLimitSeconds);
-    const awarded = Math.round(q.basePoints * timeFactor) + ((maxHints - usedHints) * 10);
+    const awarded =
+      Math.round(q.basePoints * timeFactor) + (maxHints - usedHints) * 10;
     setScore((s) => s + awarded);
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
 
@@ -340,7 +344,8 @@ export default function App() {
   }
 
   function resetProgress() {
-    if (!confirm("Pärast kinnitamist sinu edusammud kustutatakse — oled kindel?")) return;
+    if (!confirm("Pärast kinnitamist sinu edusammud kustutatakse — oled kindel?"))
+      return;
     localStorage.removeItem("cyber_level");
     localStorage.removeItem("cyber_score");
     localStorage.removeItem("cyber_hints");
@@ -364,9 +369,13 @@ export default function App() {
       <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6 flex flex-col items-center justify-center">
         <div className="max-w-2xl bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 text-center">
           <h1 className="text-3xl font-extrabold mb-4">Õnnitlused! 🎉</h1>
-          <p className="text-lg mb-2">Oled läbinud kõik 20 taset!</p>
-          <p className="text-lg mb-2">Sinu skoor: <span className="font-mono">{score}</span> punkti</p>
-          <p className="text-lg mb-4">Kogu aeg: <span className="font-mono">{minutes}m {seconds}s</span></p>
+          <p className="text-lg mb-2">Oled läbinud kõik {QUESTIONS.length} taset!</p>
+          <p className="text-lg mb-2">
+            Sinu skoor: <span className="font-mono">{score}</span> punkti
+          </p>
+          <p className="text-lg mb-4">
+            Kogu aeg: <span className="font-mono">{minutes}m {seconds}s</span>
+          </p>
 
           <div className="flex flex-col gap-3">
             <button
@@ -391,7 +400,56 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6">
       <div className="max-w-4xl mx-auto bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 grid gap-6">
-        {/* … ülejäänud UI sama nagu sinu olemasolevas App.jsx */}
+        <h2 className="text-2xl font-bold">{q.prompt}</h2>
+
+        <form onSubmit={handleSubmitAnswer} className="flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="flex-1 p-2 rounded-lg text-black"
+            placeholder="Sisesta vastus..."
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white"
+          >
+            Esita
+          </button>
+        </form>
+
+        {message && <p className="text-yellow-300">{message}</p>}
+
+        {stage === 2 && (
+          <button
+            onClick={handleConfirmClaim}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white"
+          >
+            Kinnita
+          </button>
+        )}
+
+        <div className="flex gap-2">
+          <button
+            onClick={handleUseHint}
+            className="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-white"
+          >
+            Näita vihjet
+          </button>
+
+          <button
+            onClick={handleRevealSolution}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-white"
+          >
+            Näita lahendust
+          </button>
+        </div>
+
+        {showHintText && <p className="text-blue-300">{q.hint}</p>}
+        {showSolutionText && <p className="text-green-300">{q.solution}</p>}
+
+        <p className="mt-4">Aega jäänud: {timeLeft}s</p>
+        <p>Skoor: {score}</p>
       </div>
     </div>
   );
