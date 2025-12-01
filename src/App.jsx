@@ -201,8 +201,7 @@ export default function App() {
     {
       id: 20,
       prompt:
-        "Tase 20 — Lõpumõistatus: Krüpteeritud tekst on AES-GCM-iga (simuleeritud). Kirjuta sõna, mis kokkuvõttes tähendab 'turvaline'. (eesti keeles, üks sõna)",
-      answer: "turvaline",
+        "Tase 20 — Lõpumõistatus: Mis on see omadus, mida soovid, et su andmed, kodu või saladused oleksid AES-GCM-i krüpteeringuga kaitstud?,
       hint: "See on sõna, mida oled varem mängu alguses näinud kui ühe infoturbeeesmärgi osa ('confidentiality' ei ole see).",
       solution: "Õige sõna on 'turvaline'.",
       timeLimitSeconds: 420,
