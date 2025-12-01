@@ -23,13 +23,14 @@ export default function App() {
       timeLimitSeconds: 600,
       basePoints: 60,
     },
-    {
+     {
       id: 3,
       prompt:
         "Tase 3 — Caesar-saladus: dekrüpteeri sõna, mis on nihutatud +5 (algne: 'mfqqt'). Mis on algne inglisekeelne sõna?",
       answer: "happy",
       hint: "Proovi nihutada tähti vasakule 5 sammu.",
-      solution: "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
+      solution:
+        "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
       timeLimitSeconds: 600,
       basePoints: 70,
     },
@@ -215,28 +216,23 @@ export default function App() {
       timeLimitSeconds: 600,
       basePoints: 200,
     },
-	  // Lisa kõik ülejäänud küsimused samamoodi...
+	  // Lisa siia kõik ülejäänud küsimused samamoodi...
   ];
 
   const maxHints = 3;
 
-  // Turvalised state algväärtused
   const [level, setLevel] = useState(() => {
     const saved = localStorage.getItem("cyber_level");
-    const lvl = saved ? Number(saved) : 1;
-    return lvl > QUESTIONS.length || lvl < 1 ? 1 : lvl;
+    return saved ? Number(saved) : 1;
   });
-
   const [score, setScore] = useState(() => {
-    const s = localStorage.getItem("cyber_score");
-    return s && !isNaN(Number(s)) ? Number(s) : 0;
+    const saved = localStorage.getItem("cyber_score");
+    return saved ? Number(saved) : 0;
   });
-
   const [usedHints, setUsedHints] = useState(() => {
-    const h = localStorage.getItem("cyber_hints");
-    return h && !isNaN(Number(h)) ? Number(h) : 0;
+    const saved = localStorage.getItem("cyber_hints");
+    return saved ? Number(saved) : 0;
   });
-
   const [input, setInput] = useState("");
   const [message, setMessage] = useState(null);
   const [stage, setStage] = useState(1);
@@ -248,18 +244,9 @@ export default function App() {
 
   const timerRef = useRef(null);
 
-  const q = QUESTIONS.find((q) => q.id === level);
-
-  // Kui küsimust ei leidu, näita veateadet
-  if (!q) {
-    return (
-      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
-        <p>Viga: küsimust ei leitud (level={level})</p>
-      </div>
-    );
-  }
-
+  // Käivitame timeri
   useEffect(() => {
+    const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
     setTimeLeft(q.timeLimitSeconds);
     setInput("");
     setMessage(null);
@@ -267,7 +254,7 @@ export default function App() {
     setShowHintText(false);
     setShowSolutionText(false);
     localStorage.setItem("cyber_level", level);
-  }, [level, q.timeLimitSeconds]);
+  }, [level]);
 
   useEffect(() => {
     localStorage.setItem("cyber_score", score);
@@ -297,6 +284,8 @@ export default function App() {
 
   function handleSubmitAnswer(e) {
     e.preventDefault();
+    const q = QUESTIONS.find((q) => q.id === level);
+    if (!q) return;
     if (timeLeft <= 0) {
       setMessage("Aeg on läbi — taset ei õnnestu lõpetada.");
       return;
@@ -322,15 +311,17 @@ export default function App() {
 
   function handleConfirmClaim() {
     if (stage !== 2) return;
+    const q = QUESTIONS.find((q) => q.id === level);
     const timeFactor = Math.max(0.1, timeLeft / q.timeLimitSeconds);
     const awarded = Math.round(q.basePoints * timeFactor) + (maxHints - usedHints) * 10;
     setScore((s) => s + awarded);
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
 
-    if (level >= QUESTIONS.length) {
+    if (level === QUESTIONS.length) {
       setQuizFinished(true);
     } else {
-      setLevel(level + 1);
+      const next = level + 1;
+      setLevel(next);
       setStage(1);
     }
   }
@@ -353,8 +344,7 @@ export default function App() {
   }
 
   function resetProgress() {
-    if (!confirm("Pärast kinnitamist sinu edusammud kustutatakse — oled kindel?"))
-      return;
+    if (!confirm("Pärast kinnitamist sinu edusammud kustutatakse — oled kindel?")) return;
     localStorage.removeItem("cyber_level");
     localStorage.removeItem("cyber_score");
     localStorage.removeItem("cyber_hints");
@@ -366,6 +356,8 @@ export default function App() {
     setQuizFinished(false);
     setStartTime(Date.now());
   }
+
+  const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
 
   const totalTimeSec = Math.floor((Date.now() - startTime) / 1000);
   const minutes = Math.floor(totalTimeSec / 60);
@@ -404,9 +396,25 @@ export default function App() {
     );
   }
 
+  // Layout koos külgribaga
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6">
-      <div className="max-w-4xl mx-auto bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 grid gap-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6 flex gap-6">
+      {/* Külgriba */}
+      <aside className="w-64 bg-slate-900/80 p-4 rounded-2xl shadow-xl flex flex-col gap-2">
+        <h2 className="text-xl font-bold mb-2">Külgriba</h2>
+        <p>Skoor: {score}</p>
+        <p>Vihjed: {usedHints}/{maxHints}</p>
+        <p>Aega jäänud: {timeLeft}s</p>
+        <button
+          onClick={resetProgress}
+          className="mt-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-white"
+        >
+          Lähtesta mäng
+        </button>
+      </aside>
+
+      {/* Peamine sisu */}
+      <main className="flex-1 bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 flex flex-col gap-4">
         <h2 className="text-2xl font-bold">{q.prompt}</h2>
 
         <form onSubmit={handleSubmitAnswer} className="flex gap-2">
@@ -454,10 +462,7 @@ export default function App() {
 
         {showHintText && <p className="text-blue-300">{q.hint}</p>}
         {showSolutionText && <p className="text-green-300">{q.solution}</p>}
-
-        <p className="mt-4">Aega jäänud: {timeLeft}s</p>
-        <p>Skoor: {score}</p>
-      </div>
+      </main>
     </div>
   );
 }
