@@ -369,11 +369,81 @@ export default function App() {
             </div>
 
             <form onSubmit={handleSubmitAnswer} className="flex gap-3 items-center">
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
-              placeholder="Sisesta vastus siia..."
-              aria-label="Vastus"
-              required
-            />
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
+                placeholder="Sisesta vastus siia..."
+                aria-label="Vastus"
+                required
+              />
+              <button
+                type="submit"
+                className="px-4 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+              >
+                Kontrolli
+              </button>
+            </form>
+
+            {message && <div className="mt-3 p-2 bg-slate-700 rounded">{message}</div>}
+
+            <div className="flex gap-3 mt-3">
+              <button
+                onClick={handleUseHint}
+                className="px-3 py-2 bg-yellow-600 rounded hover:bg-yellow-700"
+              >
+                Näita vihjet
+              </button>
+              <button
+                onClick={handleRevealSolution}
+                className="px-3 py-2 bg-red-600 rounded hover:bg-red-700"
+              >
+                Näita lahendust
+              </button>
+              <button
+                onClick={handleConfirmClaim}
+                disabled={stage !== 2}
+                className={`px-3 py-2 rounded ${
+                  stage === 2 ? "bg-green-600 hover:bg-green-700" : "bg-slate-600 cursor-not-allowed"
+                }`}
+              >
+                Kinnita
+              </button>
+            </div>
+
+            {showHintText && (
+              <div className="mt-3 p-2 bg-yellow-700 rounded text-slate-900">{q.hint}</div>
+            )}
+
+            {showSolutionText && (
+              <div className="mt-3 p-2 bg-red-700 rounded text-slate-100">{q.solution}</div>
+            )}
+
+            <div className="mt-4 text-sm text-slate-400">
+              {`Aega jäänud: ${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`}
+            </div>
+          </section>
+
+          <aside className="p-4 bg-slate-700/40 rounded-xl flex flex-col gap-4">
+            <div>
+              <div className="text-sm text-slate-300">Skoor</div>
+              <div className="font-mono text-xl">{score}</div>
+            </div>
+
+            <div>
+              <div className="text-sm text-slate-300">Kasutasid õlekõrsi</div>
+              <div className="font-mono text-xl">{usedHints} / {maxHints}</div>
+            </div>
+
+            <button
+              onClick={resetProgress}
+              className="mt-auto px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500"
+            >
+              Lähtesta edusammud
+            </button>
+          </aside>
+        </main>
+      </div>
+    </div>
+  );
+}
