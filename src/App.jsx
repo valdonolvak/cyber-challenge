@@ -214,24 +214,26 @@ export default function App() {
 
   const [level, setLevel] = useState(() => {
     const saved = localStorage.getItem("cyber_level");
-    return saved ? Number(saved) : 4;
+    return saved ? Number(saved) : 1;
   });
   const [score, setScore] = useState(() => {
     const s = localStorage.getItem("cyber_score");
-    return s ? Number(s) : 175;
+    return s ? Number(s) : 0;
   });
   const [usedHints, setUsedHints] = useState(() => {
     const h = localStorage.getItem("cyber_hints");
     return h ? Number(h) : 0;
   });
-
   const [input, setInput] = useState("");
   const [message, setMessage] = useState(null);
   const [stage, setStage] = useState(1);
   const [timeLeft, setTimeLeft] = useState(() => QUESTIONS[0].timeLimitSeconds);
-  const timerRef = useRef(null);
   const [showHintText, setShowHintText] = useState(false);
   const [showSolutionText, setShowSolutionText] = useState(false);
+  const [startTime, setStartTime] = useState(Date.now());
+  const [quizFinished, setQuizFinished] = useState(false);
+
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
@@ -253,6 +255,7 @@ export default function App() {
   }, [usedHints]);
 
   useEffect(() => {
+    if (quizFinished) return;
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
@@ -265,7 +268,7 @@ export default function App() {
       });
     }, 1000);
     return () => clearInterval(timerRef.current);
-  }, [level]);
+  }, [level, quizFinished]);
 
   const normalize = (s) => s.trim().toLowerCase();
 
@@ -301,9 +304,15 @@ export default function App() {
     const awarded = Math.round(q.basePoints * timeFactor) + ((maxHints - usedHints) * 10);
     setScore((s) => s + awarded);
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
-    const next = Math.min(20, level + 1);
-    setLevel(next);
-    setStage(1);
+
+    if (level === QUESTIONS.length) {
+      // Viimane tase
+      setQuizFinished(true);
+    } else {
+      const next = level + 1;
+      setLevel(next);
+      setStage(1);
+    }
   }
 
   function handleUseHint() {
@@ -333,15 +342,34 @@ export default function App() {
     setUsedHints(0);
     setInput("");
     setMessage("Edusammud lähtestatud.");
-  }
-
-  function handleSendScore() {
-    const subject = encodeURIComponent("Küberväljakutse testi skoor");
-    const body = encodeURIComponent(`Tere!\n\nMinu praegune skoor on: ${score}\nTase: ${level}/20\nKasutasin õlekõrsi: ${usedHints}/${maxHints}\n\nParimate soovidega.`);
-    window.location.href = `mailto:valdo.nolvak@gmail.com?subject=${subject}&body=${body}`;
+    setQuizFinished(false);
+    setStartTime(Date.now());
   }
 
   const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
+
+  const totalTimeSec = Math.floor((Date.now() - startTime) / 1000);
+  const minutes = Math.floor(totalTimeSec / 60);
+  const seconds = totalTimeSec % 60;
+
+  if (quizFinished) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6 flex flex-col items-center justify-center">
+        <div className="max-w-2xl bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 text-center">
+          <h1 className="text-3xl font-extrabold mb-4">Õnnitlused! 🎉</h1>
+          <p className="text-lg mb-2">Oled läbinud kõik 20 taset!</p>
+          <p className="text-lg mb-2">Sinu skoor: <span className="font-mono">{score}</span> punkti</p>
+          <p className="text-lg mb-4">Kogu aeg: <span className="font-mono">{minutes}m {seconds}s</span></p>
+          <button
+            onClick={resetProgress}
+            className="px-6 py-3 mt-4 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold"
+          >
+            Alusta uuesti
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6">
@@ -428,13 +456,6 @@ export default function App() {
               <div className="text-sm text-slate-300">Kasutasid õlekõrsi</div>
               <div className="font-mono text-xl">{usedHints} / {maxHints}</div>
             </div>
-
-            <button
-              onClick={handleSendScore}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700"
-            >
-              Saada skoor e-kirjaga
-            </button>
 
             <button
               onClick={resetProgress}
