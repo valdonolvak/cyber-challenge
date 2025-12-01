@@ -110,7 +110,7 @@ export default function App() {
     {
       id: 11,
       prompt:
-        "Tase 11 — Mis räsi-funktsioon annab fikseeritud pikkusega väljundi ja on vastupidav kokkupõrgetele (ühe sõnaga, nt 'sha256')?",
+        "Tase 11 — Mis räsi-funktsioon annab fikseeritud pikkusega väljundi ja on vastupidav kokkupõrgetele?",
       answer: "sha256",
       hint: "Tavaliselt kasutatakse see failide tervikluse kontrolliks ja paroolide räsi hoidmiseks.",
       solution: "Näide vastusest: 'sha256'.",
@@ -150,7 +150,7 @@ export default function App() {
     {
       id: 15,
       prompt:
-        "Tase 15 — Mis on tavaliselt kõige paremini sobiv meede rünnete avastamiseks ja logide analüüsiks? (tõlkes ühe sõnaga, näiteks 'SIEM')",
+        "Tase 15 — Mis on tavaliselt kõige paremini sobiv meede rünnete avastamiseks ja logide analüüsiks?",
       answer: "siem",
       hint: "Lühend, mis sisaldab sõna 'Event' (sündmus).",
       solution:
@@ -171,7 +171,7 @@ export default function App() {
     {
       id: 17,
       prompt:
-        "Tase 17 — Mis CLI käsk kuvab aktiivseid võrguühendusi Linuxis (üks sõna - tavaliselt algab 'ss' või 'netstat')?",
+        "Tase 17 — Mis CLI käsk kuvab aktiivseid võrguühendusi Linuxis (üks sõna)?",
       answer: "ss",
       hint: "Modernne asendus 'netstat' käsule, lihtne 2-täheline käsk.",
       solution: "'ss' kuvab sokleid ning aktiivseid ühendusi.",
