@@ -369,9 +369,11 @@ export default function App() {
             </div>
 
             <form onSubmit={handleSubmitAnswer} className="flex gap-3 items-center">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
-                placeholder="Sisesta vastus siia..."
-                aria-label
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
+              placeholder="Sisesta vastus siia..."
+              aria-label="Vastus"
+              required
+            />
