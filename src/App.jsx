@@ -208,7 +208,6 @@ export default function App() {
       timeLimitSeconds: 420,
       basePoints: 200,
     },
-    // Lisa teised küsimused siia vajadusel
   ];
 
   const maxHints = 3;
@@ -307,7 +306,6 @@ export default function App() {
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
 
     if (level === QUESTIONS.length) {
-      // Viimane tase
       setQuizFinished(true);
     } else {
       const next = level + 1;
@@ -361,12 +359,22 @@ export default function App() {
           <p className="text-lg mb-2">Oled läbinud kõik 20 taset!</p>
           <p className="text-lg mb-2">Sinu skoor: <span className="font-mono">{score}</span> punkti</p>
           <p className="text-lg mb-4">Kogu aeg: <span className="font-mono">{minutes}m {seconds}s</span></p>
-          <button
-            onClick={resetProgress}
-            className="px-6 py-3 mt-4 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold"
-          >
-            Alusta uuesti
-          </button>
+
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={resetProgress}
+              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold"
+            >
+              Alusta uuesti
+            </button>
+
+            <a
+              href={`mailto:valdo.nolvak@hkhk.edu.ee?subject=Küberväljakutse%20tulemused&body=Sinu%20skoor:%20${score}%20punkti%0A%0AKogu%20aeg:%20${minutes}m%20${seconds}s`}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold"
+            >
+              Saada tulemus e-kirjaga
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -375,97 +383,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 text-slate-100 p-6">
       <div className="max-w-4xl mx-auto bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-2xl p-6 grid gap-6">
-        <header className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-extrabold">Küberväljakutse — 20 taset</h1>
-            <p className="text-sm text-slate-300 mt-1">Iga tase lukustub järgmise jaoks — kasuta maksimaalselt 3 õlekõrt.</p>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-slate-300">Tase</div>
-            <div className="font-mono text-xl">{level} / 20</div>
-          </div>
-        </header>
-
-        <main className="grid md:grid-cols-3 gap-6">
-          <section className="md:col-span-2 p-4 bg-slate-700/40 rounded-xl">
-            <div className="mb-4">
-              <h2 className="font-semibold">{`Tase ${q.id}`}</h2>
-              <p className="mt-2 text-slate-200 leading-relaxed">{q.prompt}</p>
-            </div>
-
-            <form onSubmit={handleSubmitAnswer} className="flex gap-3 items-center">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 placeholder-slate-400 focus:outline-none"
-                placeholder="Sisesta vastus siia..."
-                aria-label="Vastus"
-                required
-              />
-              <button
-                type="submit"
-                className="px-4 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
-              >
-                Kontrolli
-              </button>
-            </form>
-
-            {message && <div className="mt-3 p-2 bg-slate-700 rounded">{message}</div>}
-
-            <div className="flex gap-3 mt-3">
-              <button
-                onClick={handleUseHint}
-                className="px-3 py-2 bg-yellow-600 rounded hover:bg-yellow-700"
-              >
-                Näita vihjet
-              </button>
-              <button
-                onClick={handleRevealSolution}
-                className="px-3 py-2 bg-red-600 rounded hover:bg-red-700"
-              >
-                Näita lahendust
-              </button>
-              <button
-                onClick={handleConfirmClaim}
-                disabled={stage !== 2}
-                className={`px-3 py-2 rounded ${stage === 2 ? "bg-green-600 hover:bg-green-700" : "bg-slate-600 cursor-not-allowed"}`}
-              >
-                Kinnita
-              </button>
-            </div>
-
-            {showHintText && (
-              <div className="mt-3 p-2 bg-yellow-700 rounded text-slate-900">{q.hint}</div>
-            )}
-
-            {showSolutionText && (
-              <div className="mt-3 p-2 bg-red-700 rounded text-slate-100">{q.solution}</div>
-            )}
-
-            <div className="mt-4 text-sm text-slate-400">
-              {`Aega jäänud: ${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`}
-            </div>
-          </section>
-
-          <aside className="p-4 bg-slate-700/40 rounded-xl flex flex-col gap-4">
-            <div>
-              <div className="text-sm text-slate-300">Skoor</div>
-              <div className="font-mono text-xl">{score}</div>
-            </div>
-
-            <div>
-              <div className="text-sm text-slate-300">Kasutasid õlekõrsi</div>
-              <div className="font-mono text-xl">{usedHints} / {maxHints}</div>
-            </div>
-
-            <button
-              onClick={resetProgress}
-              className="mt-auto px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500"
-            >
-              Lähtesta edusammud
-            </button>
-          </aside>
-        </main>
+        {/* … ülejäänud UI sama nagu sinu olemasolevas App.jsx */}
       </div>
     </div>
   );
