@@ -279,9 +279,9 @@ export default function App() {
       return;
     }
     if (normalize(input) === normalize(q.answer)) {
-      setMessage("Vastus õige! Liigume kinnituse etappi — vajuta 'Kinnita' 15 sekundi jooksul.");
+      setMessage("Vastus õige! Liigume kinnituse etappi — vajuta 'Kinnita' 60 sekundi jooksul.");
       setStage(2);
-      let confirmT = 15;
+      let confirmT = 60;
       const confirmId = setInterval(() => {
         confirmT -= 1;
         if (confirmT <= 0) {
