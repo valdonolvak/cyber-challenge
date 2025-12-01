@@ -29,8 +29,7 @@ export default function App() {
         "Tase 3 — Caesar-saladus: dekrüpteeri sõna, mis on nihutatud +5 (algne: 'mfqqt'). Mis on algne inglisekeelne sõna?",
       answer: "happy",
       hint: "Proovi nihutada tähti vasakule 5 sammu.",
-      solution:
-        "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
+      solution: "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
       timeLimitSeconds: 600,
       basePoints: 70,
     },
@@ -216,23 +215,28 @@ export default function App() {
       timeLimitSeconds: 600,
       basePoints: 200,
     },
-    // Lisa siia ülejäänud küsimused (3–20) samamoodi nagu sinu olemasolevas koodis
+	  // Lisa kõik ülejäänud küsimused samamoodi...
   ];
 
   const maxHints = 3;
 
+  // Turvalised state algväärtused
   const [level, setLevel] = useState(() => {
     const saved = localStorage.getItem("cyber_level");
-    return saved ? Number(saved) : 1;
+    const lvl = saved ? Number(saved) : 1;
+    return lvl > QUESTIONS.length || lvl < 1 ? 1 : lvl;
   });
+
   const [score, setScore] = useState(() => {
     const s = localStorage.getItem("cyber_score");
-    return s ? Number(s) : 0;
+    return s && !isNaN(Number(s)) ? Number(s) : 0;
   });
+
   const [usedHints, setUsedHints] = useState(() => {
     const h = localStorage.getItem("cyber_hints");
-    return h ? Number(h) : 0;
+    return h && !isNaN(Number(h)) ? Number(h) : 0;
   });
+
   const [input, setInput] = useState("");
   const [message, setMessage] = useState(null);
   const [stage, setStage] = useState(1);
@@ -244,8 +248,18 @@ export default function App() {
 
   const timerRef = useRef(null);
 
+  const q = QUESTIONS.find((q) => q.id === level);
+
+  // Kui küsimust ei leidu, näita veateadet
+  if (!q) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+        <p>Viga: küsimust ei leitud (level={level})</p>
+      </div>
+    );
+  }
+
   useEffect(() => {
-    const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
     setTimeLeft(q.timeLimitSeconds);
     setInput("");
     setMessage(null);
@@ -253,7 +267,7 @@ export default function App() {
     setShowHintText(false);
     setShowSolutionText(false);
     localStorage.setItem("cyber_level", level);
-  }, [level]);
+  }, [level, q.timeLimitSeconds]);
 
   useEffect(() => {
     localStorage.setItem("cyber_score", score);
@@ -283,8 +297,6 @@ export default function App() {
 
   function handleSubmitAnswer(e) {
     e.preventDefault();
-    const q = QUESTIONS.find((q) => q.id === level);
-    if (!q) return;
     if (timeLeft <= 0) {
       setMessage("Aeg on läbi — taset ei õnnestu lõpetada.");
       return;
@@ -310,18 +322,15 @@ export default function App() {
 
   function handleConfirmClaim() {
     if (stage !== 2) return;
-    const q = QUESTIONS.find((q) => q.id === level);
     const timeFactor = Math.max(0.1, timeLeft / q.timeLimitSeconds);
-    const awarded =
-      Math.round(q.basePoints * timeFactor) + (maxHints - usedHints) * 10;
+    const awarded = Math.round(q.basePoints * timeFactor) + (maxHints - usedHints) * 10;
     setScore((s) => s + awarded);
     setMessage(`Tase läbitud! Saad ${awarded} punkti.`);
 
-    if (level === QUESTIONS.length) {
+    if (level >= QUESTIONS.length) {
       setQuizFinished(true);
     } else {
-      const next = level + 1;
-      setLevel(next);
+      setLevel(level + 1);
       setStage(1);
     }
   }
@@ -357,8 +366,6 @@ export default function App() {
     setQuizFinished(false);
     setStartTime(Date.now());
   }
-
-  const q = QUESTIONS.find((q) => q.id === level) || QUESTIONS[0];
 
   const totalTimeSec = Math.floor((Date.now() - startTime) / 1000);
   const minutes = Math.floor(totalTimeSec / 60);
