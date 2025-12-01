@@ -1,6 +1,5 @@
 name: Deploy to GitHub Pages
 
-# Käivitub iga kord, kui main branch’i pushitakse
 on:
   push:
     branches:
@@ -11,25 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Node.js seadistamine
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # 4️⃣ Build Vite projekt
       - name: Build project
         run: npm run build
 
-      # 5️⃣ Deploy GitHub Pages’ile
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
