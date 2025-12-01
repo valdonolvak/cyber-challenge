@@ -9,7 +9,7 @@ export default function App() {
       answer: "cia",
       hint: "Algustähed sõnadest Confidentiality, Integrity, Availability.",
       solution: "Vastus on CIA (Confidentiality, Integrity, Availability).",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 50,
     },
     {
@@ -20,18 +20,19 @@ export default function App() {
       hint: "Võti on sama mõlemas suunas — kiire ja levinud salastusmeetod.",
       solution:
         "Sõna on 'sümmeetriline' (inglise keeles 'symmetric').",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 60,
     },
     {
       id: 3,
       prompt:
-        "Tase 3 — Millist porti kasutab tavaliselt SSH protokoll (lihtne number)?",
-      answer: "22",
-      hint: "See on väike kahekohaline number, tavaline SSH port.",
-      solution: "SSH vaikimisi port on 22.",
-      timeLimitSeconds: 420,
-      basePoints: 40,
+        "Tase 3 — Caesar-saladus: dekrüpteeri sõna, mis on nihutatud +5 (algne: 'mfqqt'). Mis on algne inglisekeelne sõna?",
+      answer: "happy",
+      hint: "Proovi nihutada tähti vasakule 5 sammu.",
+      solution:
+        "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
+      timeLimitSeconds: 600,
+      basePoints: 70,
     },
     {
       id: 4,
@@ -41,7 +42,7 @@ export default function App() {
       hint: "Base64 lõppmärgiks on '=' ja string tundub koosneb ingliskeelsetest sõnadest ja alakriipsust.",
       solution:
         "Base64 dekoodides saad: CRESTED_PUBIC (sisesta täpselt, suurtähtedega).",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 80,
     },
     {
@@ -52,130 +53,137 @@ export default function App() {
       hint: "See pole bruteforce täies mõttes, vaid 'sõnaraamatul põhinev'.",
       solution:
         "Tavaliselt nimetatakse seda 'dictionary' rünnakuks (sõnastikurünnak).",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 60,
     },
-    {
-      id: 6,
-      prompt:
-        "Tase 6 — Caesar-saladus: dekrüpteeri sõna, mis on nihutatud +5 (algne: 'mfqqt'). Mis on algne sõna?",
-      answer: "happy",
-      hint: "Proovi nihutada tähti vasakule 5 sammu.",
-      solution:
-        "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
-      timeLimitSeconds: 420,
-      basePoints: 70,
-    },
-    {
-      id: 7,
-      prompt:
-        "Tase 7 — Mis DNS-kirje tüüp seob domeeni IPv4 aadressiga (üks täht)?",
-      answer: "a",
-      hint: "See on ühe tähega kirje nagu 'A' või 'AAAA'.",
-      solution: "IPv4 aadressi kirjet nimetatakse 'A' kirjeks.",
-      timeLimitSeconds: 420,
-      basePoints: 40,
-    },
-    {
-      id: 8,
-      prompt:
-        "Tase 8 — Logirida: '2025-11-12T08:12:33Z POST /login 401 from 192.168.100.12' — mis on IP aadress?",
-      answer: "192.168.100.12",
-      hint: "IP on lõpus, pärast sõna 'from'.",
-      solution: "IP on 192.168.100.12.",
-      timeLimitSeconds: 420,
-      basePoints: 40,
-    },
-    {
-      id: 9,
-      prompt:
-        "Tase 9 — Mis on kõige levinum viis veebirakenduse SQL injection vältimiseks (üks sõna)?",
-      answer: "parametreerimine",
-      hint: "Tuleb kasutada ettevalmistatud lauseid / prepared statements.",
-      solution:
-        "Õige on 'parametreerimine' (prepared statements / parameterized queries).",
-      timeLimitSeconds: 420,
-      basePoints: 70,
-    },
-    {
-      id: 10,
-      prompt:
-        "Tase 10 — Mis tööriist võimaldab võrgu liiklust 'kuulata' (inglise üks sõna)?",
-      answer: "wireshark",
-      hint: "See on GUI/CLI tööriist tuntud pakettide uurimiseks.",
-      solution: "Tööriist on Wireshark.",
-      timeLimitSeconds: 420,
-      basePoints: 60,
-    },
-    {
-      id: 11,
-      prompt:
-        "Tase 11 — Mis räsi-funktsioon annab fikseeritud pikkusega väljundi ja on vastupidav kokkupõrgetele?",
-      answer: "sha256",
-      hint: "Tavaliselt kasutatakse see failide tervikluse kontrolliks ja paroolide räsi hoidmiseks.",
-      solution: "Näide vastusest: 'sha256'.",
-      timeLimitSeconds: 420,
-      basePoints: 80,
-    },
-    {
-      id: 12,
-      prompt:
-        "Tase 12 — Milline HTTP staatuskood tähendab 'Liiga palju päringuid' (kirjuta number)?",
-      answer: "429",
-      hint: "See kood on 4xx perekonnast ja viitab limiitidele.",
-      solution: "429 - Too Many Requests.",
-      timeLimitSeconds: 420,
-      basePoints: 40,
-    },
-    {
-      id: 13,
-      prompt:
-        "Tase 13 — XOR operaatoriga: '0110 XOR 1100 = ?' (anna binaarne tulemus).",
-      answer: "1010",
-      hint: "XOR = erinevus; kui bitid erinevad siis 1.",
-      solution: "0110 XOR 1100 = 1010.",
-      timeLimitSeconds: 420,
-      basePoints: 50,
-    },
-    {
-      id: 14,
-      prompt:
-        "Tase 14 — Mis meetodiga saad kaitsta API-d, andes igale kliendile unikaalse võtme (inglise, üks sõna)?",
-      answer: "apikey",
-      hint: "Paljud teenused kasutavad seda lihtsat võtme kontseptsiooni. (kirjuta kokku ilma tühikuteta)",
-      solution: "Vastus: 'apikey' (API key).",
-      timeLimitSeconds: 420,
-      basePoints: 60,
-    },
-    {
-      id: 15,
-      prompt:
-        "Tase 15 — Mis on tavaliselt kõige paremini sobiv meede rünnete avastamiseks ja logide analüüsiks?",
-      answer: "siem",
-      hint: "Lühend, mis sisaldab sõna 'Event' (sündmus).",
-      solution:
-        "SIEM (Security Information and Event Management) — lühend 'siem'.",
-      timeLimitSeconds: 420,
-      basePoints: 70,
-    },
+	{
+	  id: 6,
+	  prompt:
+		"Tase 6 — Mis tüüpi krüptograafiline algoritm kasutab avalikku ja privaatvõtit, kus andmete krüpteerimine toimub avaliku võtmega ja dekrüpteerimine privaatvõtmega? (üks sõna)",
+	  answer: "asümeetriline",
+	  hint: "Avalik võtme süsteem; tuntud näiteks RSA puhul.",
+	  solution:
+		"Õige vastus on 'asümeetriline' (inglise keeles 'asymmetric').",
+	  timeLimitSeconds: 420,
+	  basePoints: 70,
+	},
+	{
+	  id: 7,
+	  prompt:
+		"Tase 7 — Mis tüüpi rünnakus manipuleerib ründaja veebilehe sisendiga, et SQL päringus tahtmatult käivitada täiendav käsk? (üks sõna)",
+	  answer: "sqlinjection",
+	  hint: "See rünnak kasutab ettevalmistamata päringuid.",
+	  solution:
+		"Õige vastus on 'sqlinjection'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 80,
+	},
+	{
+	  id: 8,
+	  prompt:
+		"Tase 8 — Antud krüpteeritud tekst on AES-CBC moodulis: '3ad77bb40d7a3660a89ecaf32466ef97'. Millist parooli tüüpi kasutati algses võtmes, kui tegemist on tavapärase sõnaraamatupõhise rünnakuga?",
+	  answer: "nähtusõna",
+	  hint: "See on tavaline lihtne sõna või fraas, mida inimesed kasutavad.",
+	  solution:
+		"Vastus on 'nähtusõna', mis tähendab tavapärase sõnaraamatupõhise parooli kasutamist.",
+	  timeLimitSeconds: 420,
+	  basePoints: 90,
+	},
+	{
+	  id: 9,
+	  prompt:
+		"Tase 9 — Mis termin kirjeldab rünnakut, kus ründaja jälgib ja salvestab võrgu liiklust, et hiljem andmeid dekrüpteerida või varastada? (inglise üks sõna)",
+	  answer: "sniffing",
+	  hint: "Lihtne võrgu liikluse kuulamise termin.",
+	  solution:
+		"Õige vastus on 'sniffing'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 80,
+	},
+	{
+	  id: 10,
+	  prompt:
+		"Tase 10 — Mis on tavaliselt HTTPS sertifikaadi valideerimise protokoll, mis kontrollib sertifikaadi kehtivust ja domeeni omandiõigust? (inglise üks sõna)",
+	  answer: "ocsp",
+	  hint: "See protokoll võimaldab reaalajas kontrollida sertifikaadi tühistamist.",
+	  solution:
+		"Õige vastus on 'OCSP' (Online Certificate Status Protocol).",
+	  timeLimitSeconds: 420,
+	  basePoints: 90,
+	},
+	{
+	  id: 11,
+	  prompt:
+		"Tase 11 — Mis on nimetatud rünnakut, kus ründaja suunab kasutaja seadmesse vale DNS-aadressi, et varastada sisselogimise andmeid või liiklust (üks sõna)?",
+	  answer: "phishing",
+	  hint: "Tihti e-kirja või võltsitud lehe kaudu.",
+	  solution:
+		"Õige vastus on 'phishing'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 100,
+	},
+	{
+	  id: 12,
+	  prompt:
+		"Tase 12 — Mis turvamehhanism tagab, et sõnumit või faili ei ole muudetud edastamise ajal? (inglise üks sõna)",
+	  answer: "integrity",
+	  hint: "See koosneb tavaliselt räsi või digitaalse allkirja kontrollist.",
+	  solution:
+		"Õige vastus on 'integrity'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 70,
+	},
+	{
+	  id: 13,
+	  prompt:
+		"Tase 13 — Mis tüüpi rünnakus üritab ründaja jõuda juurdepääsuni, proovides kõiki võimalikke paroolide kombinatsioone? (üks sõna)",
+	  answer: "bruteforce",
+	  hint: "See on jõurünnak, mis testib kõiki kombinatsioone.",
+	  solution:
+		"Õige vastus on 'bruteforce'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 80,
+	},
+	{
+	  id: 14,
+	  prompt:
+		"Tase 14 — Mis termin kirjeldab olukorda, kus küberrünnak põhjustab teenuse või võrgu ajutise kättesaamatuse? (üks sõna)",
+	  answer: "dos",
+	  hint: "Lühend inglise keeles sõnadest Denial of Service.",
+	  solution:
+		"Õige vastus on 'DoS'.",
+	  timeLimitSeconds: 420,
+	  basePoints: 90,
+	},
+	{
+	  id: 15,
+	  prompt:
+		"Tase 15 — Mis meetod võimaldab autentida kasutajat ilma, et parooli kunagi võrku saadetaks? (inglise üks sõna)",
+	  answer: "challenge",
+	  hint: "See meetod töötab tavaliselt 'challenge-response' protokolli abil.",
+	  solution:
+		"Õige vastus on 'challenge' (osaliselt 'challenge-response').",
+	  timeLimitSeconds: 420,
+	  basePoints: 100,
+	},
     {
       id: 16,
       prompt:
-        "Tase 16 — Mis tüüpi krüptograafiline rünnak üritab leida privaatvõtit, kasutades avaliku võtme informatsiooni? (inglise üks sõna)",
-      answer: "bruteforce",
-      hint: "Selle rünnaku nimetus on sama mis tavalisel parooli bruteforce'il — proovib kõiki võimalusi.",
-      solution: "'bruteforce' ehk jõurünnak.",
-      timeLimitSeconds: 420,
-      basePoints: 80,
+        "Tase 16 — Milline HTTP staatuskood tähendab 'Liiga palju päringuid' (kirjuta number)?",
+      answer: "429",
+      hint: "See kood on 4xx perekonnast ja viitab limiitidele.",
+      solution: "429 - Too Many Requests.",
+      timeLimitSeconds: 600,
+      basePoints: 40,
     },
     {
       id: 17,
       prompt:
-        "Tase 17 — Mis CLI käsk kuvab aktiivseid võrguühendusi Linuxis (üks sõna)?",
-      answer: "ss",
-      hint: "Modernne asendus 'netstat' käsule, lihtne 2-täheline käsk.",
-      solution: "'ss' kuvab sokleid ning aktiivseid ühendusi.",
-      timeLimitSeconds: 420,
+        "Tase 17 — XOR operaatoriga: '0110 XOR 1100 = ?' (anna binaarne tulemus).",
+      answer: "1010",
+      hint: "XOR = erinevus; kui bitid erinevad siis 1.",
+      solution: "0110 XOR 1100 = 1010.",
+      timeLimitSeconds: 600,
       basePoints: 50,
     },
     {
@@ -185,7 +193,7 @@ export default function App() {
       answer: "dnsspoofing",
       hint: "DNS + spoofing/poisoning - kombineeritud termin.",
       solution: "See on DNS spoofing (või DNS poisoning). Vastus 'dnsspoofing'.",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 90,
     },
     {
@@ -195,7 +203,7 @@ export default function App() {
       answer: "123456",
       hint: "See on maailma üks levinumaid parooliridu - eestikeelne tähendus pole oluline.",
       solution: "Tuntud näide: räsi vastab paroolile '123456'.",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 100,
     },
     {
@@ -205,7 +213,7 @@ export default function App() {
       answer: "turvaline",
       hint: "See on sõna, mida oled varem mängu alguses näinud kui ühe infoturbeeesmärgi osa ('confidentiality' ei ole see).",
       solution: "Õige sõna on 'turvaline'.",
-      timeLimitSeconds: 420,
+      timeLimitSeconds: 600,
       basePoints: 200,
     },
   ];
