@@ -29,7 +29,7 @@ export default function App() {
       prompt:
         "Tase 3 — Caesar-saladus: dekrüpteeri sõna, mis on nihutatud +5 (algne: 'mfqqt'). Mis on algne inglisekeelne sõna?",
       answer: "happy",
-      hint: "Proovi nihutada tähti vasakule 5 sammu.",
+      hint: "Proovi nihutada tähti vasakule 5 sammu. Kasutada tuleb eesti tähestikku",
       solution:
         "'mfqqt' tagasi nihutades -5 saad 'happy' (tõlk: rõõmus).",
       timeLimitSeconds: 600,
