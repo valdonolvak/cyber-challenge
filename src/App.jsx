@@ -15,7 +15,7 @@ export default function App() {
     {
       id: 2,
       prompt:
-        "Tase 2 — Too ühe lause pikkune nimi krüptograafilisele meetodile, kus sama võti kasutatakse nii andmete krüpteerimiseks kui dekrüpteerimiseks (eesti keeles).",
+        "Tase 2 — Ühesõnaline nimetus krüptograafilisele meetodile, kus sama võti kasutatakse nii andmete krüpteerimiseks kui dekrüpteerimiseks (eesti keeles).",
       answer: "sümmeetriline",
       hint: "Võti on sama mõlemas suunas — kiire ja levinud salastusmeetod.",
       solution:
@@ -34,17 +34,16 @@ export default function App() {
       timeLimitSeconds: 600,
       basePoints: 70,
     },
-    {
-      id: 4,
-      prompt:
-        "Tase 4 — Antud Base64: 'Q1JFU1RFRF9QVUJJQ0k=' — dekrüpteeri ja anna tulemus SUURTEGA tähtedega.",
-      answer: "CRESTED_PUBIC",
-      hint: "Base64 lõppmärgiks on '=' ja string tundub koosneb ingliskeelsetest sõnadest ja alakriipsust.",
-      solution:
-        "Base64 dekoodides saad: CRESTED_PUBIC (sisesta täpselt, suurtähtedega).",
-      timeLimitSeconds: 600,
-      basePoints: 80,
-    },
+	{
+	  prompt:
+	    "Tase 4 — Antud koodijada: 'U0VDVVJFX0ZJTEVTWVNURU0=' — tuvastage kasutatud kodeering ning dekodeerige tulemus SUURTEGA TÄHTEDEGA.",
+	  answer: "SECURE_FILESYSTEM",
+	  hint: "Vaata, kas string koosneb ASCII-sümbolitest ja sisaldab '=' lõpus — see võib viidata kindlat tüüpi kodeeringule.",
+	  solution:
+	    "Kui tuvastada, et tegu on Base64 kodeeringuga, saab selle dekodeerida stringiks: SECURE_FILESYSTEM.",
+	  timeLimitSeconds: 900,
+	  basePoints: 100,
+	},
     {
       id: 5,
       prompt:
