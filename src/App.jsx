@@ -38,8 +38,8 @@ export default function App() {
 	{
 	  id: 4, // Lisatud id: 4, kuna originaal kode ei olnud
 	  prompt:
-	    "Tase 4 — Antud Base64: 'QjFUJFRF9FQUVJUjQ=' — dekrüpteeri ja anna tulemus SUURTEGA TÄHTEDEGA.",
-	  answer: "Q1FUJFRF_FQUVJUjQ", // Algne Base64 oli 'U0VDVVJFX0ZJTEVTWVNURU0=', mis on 'SECURE_FILESYSTEM'. Uus pildi järgi oleks: B4T_QUIZ.
+	    "Tase 4 — Antud Base64: 'U0VDVVJFX0ZJTEVTWVNURU0=' — dekrüpteeri ja anna tulemus SUURTEGA TÄHTEDEGA.",
+	  answer: "SECURE_FILESYSTEM", // Algne Base64 oli 'U0VDVVJFX0ZJTEVTWVNURU0=', mis on 'SECURE_FILESYSTEM'. Uus pildi järgi oleks: B4T_QUIZ.
 	  hint: "Vaata, kas string koosneb ASCII-sümbolitest ja sisaldab '=' lõpus — see võib viidata kindlat tüüpi kodeeringule.",
 	  solution:
 	    "Kui tuvastada, et tegu on Base64 kodeeringuga, saab selle dekodeerida stringiks: B4T_QUIZ.",
